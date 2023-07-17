@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registration Form</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Registration Form <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'home' %}" style="font-size:25px">Home</a></span></h2>
+
+      {% for msg in messages %}
+          <h3 class="text-success">{{msg}}</h3>
+         {% endfor %}
+    <form method="post">{% csrf_token %}
+      <div class="form-group">
+        <label >Name:</label>
+        <input type="text" class="form-control" name="name" placeholder="Enter your name" required>
+      </div>
+      <div class="form-group">
+        <label >Date Of Birth:</label>
+        <input type="date" class="form-control" name="date" placeholder="Enter your Date Of Birth" required>
+      </div>
+      <div class="form-group">
+        <label >Age:</label>
+        <input type="text" class="form-control" name="age" placeholder="Enter your Age" required>
+      </div>
+      <div class="form-group">
+        <label >Gender:</label><br>
+          <label for="male">Male</label>
+          <input type="radio" id="male" name="gender" value="male" required>
+          <label for="female">Female</label>
+          <input type="radio" id="female" name="gender" value="female" required>
+      </div>
+       <div class="form-group">
+        <label >Phone Number:</label>
+        <input type="text" class="form-control" name="phone" placeholder="Enter your phone Number" required>
+      </div>
+       <div class="form-group">
+        <label >Email:</label>
+        <input type="email" class="form-control" name="email" placeholder="Enter your Mail ID" required>
+      </div>
+       <div class="form-group">
+        <label >Address:</label>
+        <textarea class="form-control" name="address"></textarea>
+      </div>
+       <div class="form-group">
+        <label >District:</label>
+        <select class="form-control" onchange="populateBranches()" id="district" name="district">
+          <option>Select District</option>
+          <option>Kozhikode</option>
+          <option>Kannur</option>
+          <option>Kasargod</option>
+          <option>Thrissur</option>
+          <option>wayanadu</option>
+          <option>Iduki</option>
+        </select>
+      </div>
+      <div class="form-group">
+         <label for="branch" >Branch:</label><br>
+        <select id="branch" class="form-control" name="branch">
+          <option value="">Select Branch</option>
+        </select>
+      </div>
+         <div class="form-group">
+         <label >Account Type:</label>
+        <select  class="form-control" name="account">
+          <option>Savings Account</option>
+          <option>Current Account</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label >Materials Provide:</label><br>
+          <label >credit card</label>
+          <input type="checkbox"  name="material" value="credit card">
+          <label >debit card</label>
+          <input type="checkbox"  name="material" value="debit card">
+      </div>
+      <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+  </div>
+
+
+
+<script>
+  // Branches based on Districts
+  const districtBranches = {
+    Thrissur: ["Thrissur Town", "Guruvayur", "Kodungallur"],
+    Kozhikode: ["Kozhikode City", "Vadakara", "Farook"],
+    Kannur: ["Kannur Town", "Thalassey", "Payyannur"],
+    Kasargod: ["Kasargod Town", "Kanhangadu", "Manjeswaram"],
+    wayanadu: ["Kalpetta", "Sulthan Batheri", "Mananthavady"],
+    Iduki: ["Munnar", "Thodupuzha", "Adimali"],
+
+    // Add more district branches as needed
+  };
+
+  // Function to populate the Branch dropdown based on the selected District
+  function populateBranches() {
+    const districtSelect = document.getElementById("district");
+    const branchSelect = document.getElementById("branch");
+    const selectedDistrict = districtSelect.value;
+
+    // Clear existing options
+    branchSelect.innerHTML = "<option value=''>Select Branch</option>";
+
+    // Populate options based on selected District
+    if (selectedDistrict && districtBranches[selectedDistrict]) {
+      const branches = districtBranches[selectedDistrict];
+      branches.forEach(function (branch) {
+        const option = document.createElement("option");
+        option.value = branch;
+        option.textContent = branch;
+        branchSelect.appendChild(option);
+      });
+    }
+  }
+</script>
+</body>
+</html>
