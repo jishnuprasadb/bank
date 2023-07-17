@@ -18,11 +18,11 @@
       </div>
       <div class="form-group">
         <label >Date Of Birth:</label>
-        <input type="date" class="form-control" name="date" placeholder="Enter your Date Of Birth" required>
+        <input type="date" class="form-control" id="dob" name="date" placeholder="Enter your Date Of Birth" required oninput="calculateAge()">
       </div>
       <div class="form-group">
         <label >Age:</label>
-        <input type="text" class="form-control" name="age" placeholder="Enter your Age" required>
+        <input type="text" class="form-control" name="age" id="age" placeholder="Enter your Age" required>
       </div>
       <div class="form-group">
         <label >Gender:</label><br>
@@ -115,6 +115,25 @@
       });
     }
   }
+</script>
+<script>
+    // Function to calculate age
+function calculateAge() {
+  var dob = document.getElementById("dob").value; // Get the selected date of birth
+  var dobDate = new Date(dob); // Convert the date of birth to a Date object
+  var today = new Date(); // Get the current date
+
+  var age = today.getFullYear() - dobDate.getFullYear(); // Calculate the age
+  var monthDiff = today.getMonth() - dobDate.getMonth(); // Calculate the difference in months
+
+  // Adjust the age if the current month is before the birth month or if it's the birth month but the current day is before the birth day
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dobDate.getDate())) {
+    age--;
+  }
+    console.log(age)
+  document.getElementById("age").value = age; // Display the age
+}
+
 </script>
 </body>
 </html>
